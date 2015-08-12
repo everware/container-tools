@@ -23,16 +23,10 @@ RUN dpkg-reconfigure locales
 RUN apt-get update && apt-get install -y -q \
     build-essential \
     make \
+    wget \
     gcc \
     zlib1g-dev \
     git \
-    python \
-    python-dev \
-    python-pip \
-    python3-dev \
-    python3-pip \
-    python-sphinx \
-    python3-sphinx \
     libzmq3-dev \
     sqlite3 \
     libsqlite3-dev \
@@ -42,25 +36,25 @@ RUN apt-get update && apt-get install -y -q \
     nodejs-legacy \
     npm
 
-RUN pip2 install --upgrade setuptools pip
-RUN pip3 install --upgrade setuptools pip
+# Install anaconda
+ENV CONDA_DIR /opt/conda
+RUN echo 'export PATH=$CONDA_DIR/bin:$PATH' > /etc/profile.d/conda.sh && \
+    wget --quiet https://repo.continuum.io/miniconda/Miniconda3-3.9.1-Linux-x86_64.sh && \
+    /bin/bash /Miniconda3-3.9.1-Linux-x86_64.sh -b -p $CONDA_DIR && \
+    rm Miniconda3-3.9.1-Linux-x86_64.sh && \
+    $CONDA_DIR/bin/conda install --yes conda==3.14.1 ipython-notebook
+ENV PATH $CONDA_DIR/bin:$PATH
+
+# This kernel becomes available in the notebook with what ever
+# packages are installed in the conda environment
+# The python2 kernel is not necessary but nice to have
+RUN /bin/bash -c "conda create -n py27 python=2.7 && \
+    source activate py27 && \
+    conda install --yes ipython-notebook && \
+    ipython kernelspec install-self"
 
 RUN mkdir -p /srv/
 WORKDIR /srv/
-RUN git clone --depth 1 https://github.com/ipython/ipykernel /srv/ipykernel
-WORKDIR /srv/ipykernel
-RUN pip2 install --pre -e .
-RUN pip3 install --pre -e .
-
-RUN git clone --depth 1 https://github.com/jupyter/notebook.git /srv/notebook
-WORKDIR /srv/notebook
-RUN chmod -R +rX /srv/notebook
-
-RUN pip3 install -e .[test]
-
-# install kernels
-RUN python2 -m ipykernel.kernelspec
-RUN python3 -m ipykernel.kernelspec
 
 # fetch juptyerhub-singleuser entrypoint
 ADD https://raw.githubusercontent.com/jupyter/jupyterhub/master/jupyterhub/singleuser.py /usr/local/bin/jupyterhub-singleuser
