@@ -1,4 +1,14 @@
-# Basic containers for everware
+# A toolbox for building everware containers
+
+Tools for constructing containers that work with
+`everware`.
+
+This repository contains examples, documentation and
+tools for designing a `docker` container for your
+repository.
+
+
+# Containers
 
 Basic docker containers for use with `everware`. These
 serve as documetnation/specification for what a container
@@ -8,7 +18,7 @@ They are as basic as possible, so probably not so useful
 for actually running your repository.
 
 
-# base
+## base
 
 This is the most barebones container that will work with
 everware. If you want to create your own use this one as
@@ -32,7 +42,7 @@ docker build -t everware/base .
 ```
 
 
-# science-python
+## science-python
 
 This is a container based on `everware/base` that includes
 a few more science-y libraries. Use it as an example of how
