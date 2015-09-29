@@ -3,9 +3,9 @@
 Tools for constructing containers that work with
 `everware`.
 
-This repository contains examples, documentation and
-tools for designing a `docker` container for your
-repository.
+This repository contains [example containers](#containers),
+documentation and [tools](#tools) for designing a `docker`
+container for your repository.
 
 
 # Tools
