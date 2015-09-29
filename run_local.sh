@@ -13,7 +13,7 @@
 #
 #   docker build -t my-analysis .
 #
-# The adjust the name of CONTAINER below to match the name and tag
+# Then adjust the name of CONTAINER below to match the name and tag
 # to match the name of the docker image you built.
 #
 set -e
