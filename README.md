@@ -3,15 +3,23 @@
 Tools for constructing containers that work with
 `everware`.
 
-This repository contains examples, documentation and
-tools for designing a `docker` container for your
-repository.
+This repository contains [example containers](#containers),
+documentation and [tools](#tools) for designing a `docker`
+container for your repository.
+
+
+# Tools
+
+## run_local.sh
+
+To help with testing your setup and running your repository
+on your local machine there is the `run_local.sh` script.
 
 
 # Containers
 
 Basic docker containers for use with `everware`. These
-serve as documetnation/specification for what a container
+serve as documentation/specification for what a container
 has to do to be `everware`-ready.
 
 They are as basic as possible, so probably not so useful
